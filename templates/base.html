@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Xbox History{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #fff;
+        }
+        
+        nav {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid #107c10;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav h1 {
+            color: #107c10;
+            font-size: 24px;
+        }
+        
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+        
+        nav a:hover {
+            color: #107c10;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .button {
+            background-color: #107c10;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .button:hover {
+            background-color: #0fb100;
+        }
+        
+        footer {
+            background-color: #1a1a1a;
+            border-top: 3px solid #107c10;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            color: #aaa;
+            font-size: 12px;
+        }
+        
+        h1 {
+            color: #107c10;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #107c10;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <h1>🎮 Xbox History</h1>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/consoles">Consoles</a>
+            <a href="/games">Games</a>
+            {% if current_user.is_authenticated %}
+                <a href="/logout">Logout ({{ current_user.username }})</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <footer>
+        <p>Xbox History Project | Made by a 10th Grader Learning Python 🐍</p>
+        <p>Flask + SQLAlchemy + REST API</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Games - Xbox History{% endblock %}
+
+{% block extra_css %}
+<style>
+    .games-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    .games-table th {
+        background-color: #1a1a1a;
+        border: 1px solid #107c10;
+        color: #107c10;
+        padding: 12px;
+        text-align: left;
+    }
+    
+    .games-table td {
+        border: 1px solid #252525;
+        padding: 12px;
+        color: #aaa;
+    }
+    
+    .games-table tr:hover {
+        background-color: #1a1a1a;
+    }
+    
+    .games-table a {
+        color: #107c10;
+        text-decoration: none;
+    }
+    
+    .games-table a:hover {
+        text-decoration: underline;
+    }
+    
+    .pagination {
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .pagination a {
+        background-color: #107c10;
+        color: white;
+        padding: 8px 12px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin: 0 5px;
+    }
+    
+    .pagination a:hover {
+        background-color: #0fb100;
+    }
+    
+    .pagination span {
+        color: #aaa;
+        margin: 0 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Xbox Games</h1>
+
+<table class="games-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Developer</th>
+            <th>Genre</th>
+            <th>Score</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for game in games %}
+        <tr>
+            <td>{{ game.title }}</td>
+            <td>{{ game.year }}</td>
+            <td>{{ game.maker }}</td>
+            <td>{{ game.kind }}</td>
+            <td>{{ game.score }}/10</td>
+            <td><a href="/game/{{ game.id }}">View →</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="/games?page={{ page - 1 }}">← Previous</a>
+    {% endif %}
+    
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    
+    {% if page < total_pages %}
+        <a href="/games?page={{ page + 1 }}">Next →</a>
+    {% endif %}
+</div>
+{% endblock %}

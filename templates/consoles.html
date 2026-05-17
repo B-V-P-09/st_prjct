@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Consoles - Xbox History{% endblock %}
+
+{% block extra_css %}
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .card {
+        background-color: #1a1a1a;
+        border: 2px solid #107c10;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .card h3 {
+        color: #107c10;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+    
+    .card p {
+        color: #aaa;
+        font-size: 14px;
+        margin: 8px 0;
+    }
+    
+    .card a {
+        color: #107c10;
+        text-decoration: none;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    
+    .card a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Xbox Consoles</h1>
+
+<div class="grid">
+    {% for console in consoles %}
+    <div class="card">
+        <h3>{{ console.name }}</h3>
+        <p><strong>Released:</strong> {{ console.year }}</p>
+        <p><strong>CPU:</strong> {{ console.cpu }}</p>
+        <p><strong>RAM:</strong> {{ console.ram }}</p>
+        <p><strong>Storage:</strong> {{ console.storage }}</p>
+        <p>{{ console.description }}</p>
+        <a href="/console/{{ console.id }}">View Details →</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

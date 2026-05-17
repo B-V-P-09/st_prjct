@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}{{ console.name }} - Xbox History{% endblock %}
+
+{% block extra_css %}
+<style>
+    .detail {
+        background-color: #1a1a1a;
+        border: 2px solid #107c10;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+    
+    .detail p {
+        color: #aaa;
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+    
+    .games-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .game-item {
+        background-color: #252525;
+        padding: 15px;
+        border-radius: 4px;
+        border-left: 3px solid #107c10;
+    }
+    
+    .game-item h4 {
+        color: #107c10;
+        margin-bottom: 5px;
+    }
+    
+    .game-item p {
+        font-size: 13px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/consoles">← Back to Consoles</a>
+
+<div class="detail">
+    <h1>{{ console.name }}</h1>
+    <p><strong>Release Year:</strong> {{ console.year }}</p>
+    <p><strong>CPU:</strong> {{ console.cpu }}</p>
+    <p><strong>RAM:</strong> {{ console.ram }}</p>
+    <p><strong>Storage:</strong> {{ console.storage }}</p>
+    <p>{{ console.description }}</p>
+</div>
+
+<h2>Games for {{ console.name }}</h2>
+<div class="games-list">
+    {% for game in games %}
+    <div class="game-item">
+        <h4>{{ game.title }}</h4>
+        <p><strong>Year:</strong> {{ game.year }}</p>
+        <p><strong>Developer:</strong> {{ game.maker }}</p>
+        <p><strong>Genre:</strong> {{ game.kind }}</p>
+        <p><strong>Score:</strong> {{ game.score }}/10</p>
+        <a href="/game/{{ game.id }}" style="color: #107c10;">View Game →</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% if games|length == 0 %}
+    <p style="color: #aaa;">No games found for this console.</p>
+{% endif %}
+{% endblock %}

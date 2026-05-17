@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ game.title }} - Xbox History{% endblock %}
+
+{% block extra_css %}
+<style>
+    .detail {
+        background-color: #1a1a1a;
+        border: 2px solid #107c10;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+    
+    .detail p {
+        color: #aaa;
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+    
+    .detail a {
+        color: #107c10;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/games">← Back to Games</a>
+
+<div class="detail">
+    <h1>{{ game.title }}</h1>
+    <p><strong>Console:</strong> <a href="/console/{{ console.id }}">{{ console.name }}</a></p>
+    <p><strong>Release Year:</strong> {{ game.year }}</p>
+    <p><strong>Developer:</strong> {{ game.maker }}</p>
+    <p><strong>Genre:</strong> {{ game.kind }}</p>
+    <p><strong>Score:</strong> {{ game.score }}/10</p>
+    <p><strong>Description:</strong> {{ game.description }}</p>
+    
+    {% if current_user.is_authenticated %}
+    <button class="button" onclick="addFav({{ game.id }})" style="margin-top: 20px;">Add to Favorites ⭐</button>
+    {% else %}
+    <p style="color: #aaa; margin-top: 20px;"><a href="/login">Login</a> to add favorites</p>
+    {% endif %}
+</div>
+
+<script>
+    function addFav(gameId) {
+        fetch('/api/favorites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({game_id: gameId})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert('Added to favorites!');
+            } else {
+                alert('Error: ' + data.error);
+            }
+        });
+    }
+</script>
+{% endblock %}
